@@ -1,5 +1,4 @@
-# 🚌 College Bus Tracker
-
+# Capstone Project
 A responsive, real‑time bus tracking web application for **Dr. K Vasudevan College of Engineering and Technology** (Chennai). Track college buses, view routes and schedules, and stay updated with service announcements – all in one place.
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
@@ -7,13 +6,6 @@ A responsive, real‑time bus tracking web application for **Dr. K Vasudevan Col
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 ![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=flat&logo=leaflet&logoColor=white)
 
-## 📸 Preview
-
-| Home | Live Tracking | Schedules |
-|------|---------------|-----------|
-| ![Home](screenshots/home.png) | ![Tracking](screenshots/tracking.png) | ![Schedules](screenshots/schedules.png) |
-
-> *Screenshots are placeholders – replace with actual images if desired.*
 
 ## ✨ Features
 
