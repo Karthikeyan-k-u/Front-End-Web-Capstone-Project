@@ -56,9 +56,6 @@ Simply open index.html in your preferred browser. No server required.
 3. (Optional) Serve locally
 If you have Python installed:
 
-bash
-python -m http.server 8000
-# Then visit http://localhost:8000
 🧭 Usage
 For Students / Staff
 Home: Quick access to tracking, routes, schedules, and announcements.
