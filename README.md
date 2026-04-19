@@ -1,9 +1,5 @@
 College Bus Tracker – Real‑Time Tracking System
-https://img.shields.io/badge/license-MIT-blue.svg
-https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white
-https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white
-https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black
-https://img.shields.io/badge/Leaflet-1.9.4-green?logo=leaflet&logoColor=white
+
 
 College Bus Tracker is a responsive, front‑end web application designed for educational institutions to monitor and manage college bus operations. It provides real‑time bus locations, detailed route information, morning pick‑up schedules, and a contact portal—all in a clean, intuitive interface.
 
