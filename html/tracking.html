@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Tracking · Prince Bus Tracker</title>
+  <link rel="icon" href="/html/ChatGPT Image Apr 15, 2026, 03_02_55 PM.png" type="image/png">
+  <link rel="stylesheet" href="/css/tracking.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* Additional inline style for map container if needed */
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span>Prince Bus Tracker</span>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tracking.html" class="nav-link active">Live</a></li>
+        <li><a href="routes.html" class="nav-link">Routes</a></li>
+        <li><a href="schedules.html" class="nav-link">Schedules</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Live Bus Tracking</h1>
+    
+    <div class="tracking-controls">
+      <label for="routeSelect">Select Route:</label>
+      <select id="routeSelect">
+        <option value="all">All Routes (12)</option>
+        <option value="1">Route 1 – Prince School</option>
+        <option value="2">Route 2 – NGO Colony</option>
+        <option value="4">Route 4 – Thiruvottiyur</option>
+        <option value="6">Route 6 – Teynampet</option>
+        <option value="8">Route 8 – Madipakkam</option>
+        <option value="10">Route 10 – Padappai</option>
+        <option value="11">Route 11 – Chengalpattu</option>
+        <option value="14">Route 14 – Kundrathur</option>
+        <option value="15">Route 15 – Pattabiram</option>
+        <option value="19">Route 19 – Red Hills</option>
+        <option value="21">Route 21 – Vyasarpadi</option>
+        <option value="23">Route 23 – Hastinapuram</option>
+      </select>
+      
+      <button id="refreshBtn" class="btn-secondary">⟳ Refresh Positions</button>
+      <span id="lastUpdate">Last updated: just now</span>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="tracking-legend">
+      <span><span class="legend-dot" style="background:#2563eb;"></span> Route 1</span>
+      <span><span class="legend-dot" style="background:#16a34a;"></span> Route 2</span>
+      <span><span class="legend-dot" style="background:#9333ea;"></span> Route 4</span>
+      <span><span class="legend-dot" style="background:#ea580c;"></span> Route 6</span>
+      <span><span class="legend-dot" style="background:#0891b2;"></span> Route 8</span>
+      <span><span class="legend-dot" style="background:#ca8a04;"></span> Route 10</span>
+      <span><span class="legend-dot" style="background:#dc2626;"></span> Route 11</span>
+      <span><span class="legend-dot" style="background:#7c3aed;"></span> Route 14</span>
+      <span><span class="legend-dot" style="background:#db2777;"></span> Route 15</span>
+      <span><span class="legend-dot" style="background:#0f766e;"></span> Route 19</span>
+      <span><span class="legend-dot" style="background:#b45309;"></span> Route 21</span>
+      <span><span class="legend-dot" style="background:#4f46e5;"></span> Route 23</span>
+    </div>
+
+    <p class="note">📍 Bus positions update every 10 seconds (simulated). Click a marker for details.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Prince Bus Tracker — live tracking simulation</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Tracking page logic -->
+  <script src="/js/tracking,js"></script>
+</body>
+</html>

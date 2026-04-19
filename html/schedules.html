@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/html/ChatGPT Image Apr 15, 2026, 03_02_55 PM.png" type="image/png">
+  <title>Schedules · Prince Bus Tracker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f5f7fc; }
+    header { background: #1e2b4f; color: white; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo span { font-size: 1.5rem; font-weight: 600; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-link { color: #e0e7ff; text-decoration: none; font-weight: 500; }
+    .nav-link:hover { color: white; }
+    main { max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem; }
+    h1 { color: #0b1e3a; margin-bottom: 0.25rem; font-weight: 600; }
+    .subhead { color: #2c3e66; margin-bottom: 1.5rem; font-weight: 500; border-left: 4px solid #1e2b4f; padding-left: 1rem; }
+    .search-box { margin-bottom: 2rem; }
+    .search-box input { width: 100%; max-width: 400px; padding: 0.8rem 1.2rem; border: 1px solid #ccd9e9; border-radius: 60px; font-size: 1rem; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+    .search-box input:focus { outline: none; border-color: #1e2b4f; box-shadow: 0 0 0 3px rgba(30,43,79,0.1); }
+    
+    /* Grid layout – same as routes page */
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .route-card { background: white; border-radius: 18px; border: 1px solid #dee7f2; box-shadow: 0 6px 12px rgba(0,0,0,0.02); overflow: hidden; transition: box-shadow 0.1s; }
+    .route-card:hover { box-shadow: 0 10px 20px rgba(0,20,60,0.05); }
+    .card-header { padding: 1.2rem 1.2rem 0.8rem; }
+    .card-header h2 { color: #102a4c; font-size: 1.4rem; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid #cfdeff; padding-bottom: 0.5rem; }
+    .route-name { font-weight: 600; color: #1e3a6f; margin-bottom: 0.8rem; }
+    .time-row { display: flex; justify-content: space-between; margin: 0.5rem 0; }
+    .time-label { color: #3e5a7c; font-size: 0.85rem; }
+    .time-value { font-weight: 700; color: #0f2a4a; background: #eef3fc; padding: 0.2rem 0.7rem; border-radius: 30px; font-size: 0.9rem; }
+    .first-stop { font-size: 0.9rem; color: #1f2a44; margin: 0.3rem 0; }
+    .driver-info { font-size: 0.8rem; color: #4a6782; margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px dashed #cdddf0; }
+    .card-footer { padding: 0.5rem 1.2rem 1.2rem; }
+    .toggle-btn { background: none; border: 1px solid #b6cae0; padding: 0.4rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 500; color: #1e3a6f; cursor: pointer; width: 100%; transition: 0.1s; }
+    .toggle-btn:hover { background: #1e2b4f; color: white; border-color: #1e2b4f; }
+    
+    /* Expanded timetable */
+    .card-details { padding: 0 1.2rem 1.2rem; border-top: 1px dashed #cdddf0; background: #fafcff; }
+    .stop-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 0.5rem 0; }
+    .stop-table th { text-align: left; padding: 0.3rem 0; color: #1e3a6f; border-bottom: 1px solid #dbe4f0; }
+    .stop-table td { padding: 0.25rem 0; border-bottom: 1px solid #eef3fa; }
+    .stop-time { font-weight: 600; color: #0a1e32; }
+    .contact-full { font-size: 0.75rem; color: #4a6782; margin-top: 0.6rem; border-top: 1px solid #e0eaf5; padding-top: 0.6rem; }
+    
+    .note { background: #e9f0fe; padding: 1rem 1.8rem; border-radius: 40px; color: #10355e; margin-top: 2.5rem; }
+    footer { text-align: center; padding: 1.5rem; color: #4e6580; border-top: 1px solid #d0ddee; margin-top: 2rem; }
+    .no-results { text-align: center; padding: 2rem; color: #5b6f88; font-style: italic; grid-column: 1 / -1; }
+    @media (max-width: 600px) {
+      .schedule-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span>Prince Bus Tracker</span>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tracking.html" class="nav-link">Live</a></li>
+        <li><a href="routes.html" class="nav-link">Routes</a></li>
+        <li><a href="schedules.html" class="nav-link">Schedules</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>⏱️ Morning Pick‑up Schedule</h1>
+    <div class="subhead">📅 Effective 02.01.2026 — click "Show stops" to expand timetable</div>
+
+    <div class="search-box">
+      <input type="text" id="routeSearch" placeholder="🔍 Search by route number or name (e.g. 4, NGO, Red Hills)" autocomplete="off">
+    </div>
+
+    <div class="schedule-grid" id="scheduleGrid"></div>
+
+    <p class="note">📞 Driver contact shown – call for live updates. Afternoon schedules at college office.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Prince Bus Tracker — schedule as per 02.01.2026</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Route data (shortened stop names)
+      const routesData = [
+        { no: "1", name: "Prince School", driver: "Siva", driverPhone: "9884808111", incharge: "E. Monisha", inchargePhone: "8190075577",
+          stops: [ ["CM Hospital","7.40"], ["Independence Day Park","7.43"], ["Renga Theatre","7.45"], ["Bhuvaneswari Amman Temple","7.48"], ["JK Mahal","7.50"], ["Ezhur Amman Koil","7.53"], ["Moovarasampet","7.55"], ["Madipakkam Koot Road","7.58"], ["Keelkattalai","8.00"], ["Veeramani Nagar","8.05"], ["Vadakupattu","8.08"], ["Vellakal","8.10"], ["BHEL Nagar","8.13"], ["Puthu Koil Vijayanagar","8.16"], ["Vijaya Nagar","8.18"], ["College","8.20"] ] },
+        { no: "2", name: "NGO Colony", driver: "Veerappan", driverPhone: "8925067223", incharge: "S. Rathika", inchargePhone: "9790982759",
+          stops: [ ["Puzhuthivakkam Police Booth","7.30"], ["Prime Care Hospital","7.33"], ["Brindavan Nagar","7.35"], ["Kakkan Bridge","7.38"], ["NGO Colony Bus Stand","7.40"], ["St Thomas Mount Rly Stn","7.43"], ["Jeyalakshmi Theatre","7.45"], ["Karumari Amman Kovil","7.48"], ["Pillaiyar Temple","7.50"], ["Hayavadhana Perumal Temple","7.53"], ["Vanuvampet Church","7.55"], ["Vanuvampet Oil Mill","7.58"], ["Krishna Sweets","8.00"], ["Ganesh Nagar","8.05"], ["Andhra Bank","8.08"], ["Santhoshpuram New Prince College","8.18"], ["Vengaivasal","8.20"], ["College","8.22"] ] },
+        { no: "4", name: "Thiruvottiyur", driver: "Srinivasan", driverPhone: "9361163577", incharge: "Sheril", inchargePhone: "8825840742",
+          stops: [ ["Manali Market","5.40"], ["Manali New Town","6.05"], ["Sathya Moorthy Nagar","6.15"], ["Mullai Nagar","6.20"], ["Periyar Nagar","6.22"], ["Thiruvottiyur Police Stn","6.24"], ["N4","6.26"], ["Royapuram Kalmandapam","6.30"], ["Clive Battery","6.35"], ["Beach Station","6.37"], ["Omandurar Hospital","6.40"], ["Ratna Cafe","6.45"], ["Zambazar Police Stn","6.48"], ["Light House","6.53"], ["Pattinapakkam Signal","6.56"], ["Jesus Calls Mandaveli","7.00"], ["Adyar Signal","7.02"], ["Vannanthurai Zudio","7.05"], ["Thiruvanmiyur","7.10"], ["Kottivakkam","7.15"], ["Vettuvankani","7.18"], ["Injambakkam Post Office","7.20"], ["Water Tank (ECR)","7.25"], ["Semmanchery Arch","7.40"], ["Arasankazhani ABC Hospital","7.45"], ["Archana Sweets","7.48"], ["Sithalapakkam Jaya Nagar","7.50"], ["Sithalapakkam Junction","7.52"], ["College","8.00"] ] },
+        { no: "6", name: "Teynampet", driver: "Ayyappan", driverPhone: "9962157726", incharge: "Reena", inchargePhone: "9840988141",
+          stops: [ ["Anna Arivalayam Signal","7.00"], ["Teynampet Metro","7.05"], ["Nandanam Metro","7.07"], ["Kotturpuram","7.10"], ["Gandhi Mandapam","7.12"], ["Velachery Check Post","7.15"], ["Phoenix Mall Signal","7.18"], ["Velachery GRT","7.20"], ["Velachery Vijayanagar","7.25"], ["Baby Nagar","7.27"], ["Bharathi Nagar","7.29"], ["Taramani","7.31"], ["SRP Tools","7.33"], ["Perungudi","7.35"], ["Kanthanchavadi","7.37"], ["Thuraipakkam","7.42"], ["PTC Quarters","7.45"], ["Karapakkam","7.50"], ["Sholinganallur","7.53"], ["Perumbakkam Bus Stop","7.58"], ["Pallikaranai Jeyachandran","8.05"], ["Medavakkam Bus Stop","8.08"], ["Kannabiran Residency","8.10"], ["Sowmiya Nagar","8.12"], ["Krishnaveni Nagar","8.14"], ["Rajparis Apartment","8.17"], ["College","8.20"] ] },
+        { no: "8", name: "Madipakkam", driver: "Rajendran", driverPhone: "9884727360", incharge: "Rajarajeshwari", inchargePhone: "9500169334",
+          stops: [ ["Prince School","7.40"], ["UTI Bank","7.43"], ["Iyyappan Koil","7.45"], ["Murugan Stores","7.48"], ["Ponniamman Koil","7.50"], ["Balaiya Garden","7.53"], ["Sadhasivam Nagar","7.55"], ["A2B S.Kolathur","8.05"], ["Vinayagapuram","8.08"], ["Rani Mahal","8.11"], ["Kovilambakkam","8.13"], ["College","8.15"] ] },
+        { no: "10", name: "Padappai", driver: "Kuppan", driverPhone: "7397327797", incharge: "Poornima Devi", inchargePhone: "8754967817",
+          stops: [ ["Padappai A2B","7.15"], ["Mannivakkam Koot Road","7.18"], ["Mannivakkam Natesan School","7.20"], ["Old Perungalathur","7.22"], ["Mudichur Lakshmi Nagar","7.24"], ["Mudichur Madhanapuram","7.26"], ["Mudichur Parvathi Nagar","7.28"], ["Mudichur Pattammal Gas","7.30"], ["Mano Hospital","7.32"], ["Mudichur Sivan Koil Kulam","7.34"], ["Tambaram Kone Krishna Mandapam","7.35"], ["Tambaram Civil Line Quarters","7.36"], ["Irumbuliyur","7.38"], ["Vandalur Zoo","7.42"], ["Kolapakkam","7.45"], ["Tagore College","7.47"], ["Kandigai","7.49"], ["Puthupakkam Signal","8.00"], ["Mambakkam Bus Stop","8.05"], ["College","8.10"] ] },
+        { no: "11", name: "Chengalpattu", driver: "Madhurai", driverPhone: "6380998233", incharge: "Uma Maheshwari", inchargePhone: "9962103890",
+          stops: [ ["Chengalpattu GH opp.","7.00"], ["Chengalpattu New Bus Stand","7.05"], ["Mahindra City","7.10"], ["Singaperumal Koil","7.15"], ["Maraimalai Nagar","7.20"], ["Kattankulattur","7.25"], ["Potheri (SRM)","7.27"], ["Srinivasapuram","7.30"], ["Guduvanchery EB Office","7.32"], ["Urapakkam Tea Shop","7.35"], ["Urapakkam Bus Stop","7.38"], ["New Perungalathur","7.42"], ["Padmavathy Nagar","8.02"], ["Yeshwanth Nagar","8.04"], ["ALS Nagar","8.06"], ["Vijayalakshmi Gas","8.08"], ["Manickam Nagar","8.10"], ["College","8.15"] ] },
+        { no: "14", name: "Kundrathur", driver: "Kumar", driverPhone: "8939380463", incharge: "N. Divya", inchargePhone: "7358217622",
+          stops: [ ["Kovur","7.00"], ["Kundrathur","7.05"], ["Mehta Nagar","7.08"], ["Anakaputhur","7.10"], ["Pammal Rettai Pillaiyar","7.15"], ["Pozhichalur","7.20"], ["Venkateshwara Nagar","7.25"], ["Pammal Amman Koil","7.30"], ["Pammal Krishna Nagar","7.33"], ["Mars Hotel","7.38"], ["Chorempet Ponds Signal","7.40"], ["Chorempet Bus Stop","7.41"], ["Chorempet Lalitha Jewellery","7.42"], ["TB Hospital Sanatorium","7.46"], ["Sanatorium Bus Stand","7.48"], ["Indira Nagar","7.58"], ["Bharath College","8.00"], ["Mappedu Junction","8.03"], ["College","8.08"] ] },
+        { no: "15", name: "Pattabiram", driver: "Arunkumar", driverPhone: "9840233746", incharge: "Suganthi", inchargePhone: "9894683666",
+          stops: [ ["Pattabiram","6.20"], ["Avadi","6.30"], ["Kaduvetti","6.35"], ["Karaiyanchavadi","6.45"], ["Kumanan Chavadi","6.50"], ["Iyyappanthangal","6.55"], ["Porur Junction","7.00"], ["DLF","7.05"], ["Ramapuram MIOT","7.10"], ["Nandambakkam Trade Centre","7.15"], ["Butt Road","7.20"], ["Chrompet Saravana Stores","7.30"], ["Chrompet MIT","7.32"], ["GRT Tambaram","7.35"], ["Tambaram Rly Stn (West)","7.37"], ["Mahalakshmi Nagar","7.45"], ["KV II School","7.50"], ["Sudharshan Nagar","7.53"], ["Anna Nagar","7.56"], ["Kozhipannai","7.58"], ["Madambakkam Sivan Koil","8.00"], ["Madambakkam Jain Apt","8.02"], ["Jothi Nagar","8.04"], ["College","8.10"] ] },
+        { no: "19", name: "Red Hills", driver: "Vaithiyanathan", driverPhone: "8778418943", incharge: "Jayachitra", inchargePhone: "7010637069",
+          stops: [ ["Red Hills","6.00"], ["Oragadam","6.15"], ["Ambattur Canara Bank","6.20"], ["Ambattur Dunlop","6.22"], ["Vavin Mogappair","6.30"], ["MMM Hospital","6.35"], ["Thirumangalam Signal","6.40"], ["Koyambedu","6.50"], ["Arumbakkam","6.55"], ["Vadapalani","7.00"], ["Lakshman Sruthi","7.02"], ["Ashok Pillar","7.04"], ["Kasi Theatre","7.06"], ["Ekattuthangal Metro","7.08"], ["Alandur Metro","7.10"], ["Alandur Court","7.12"], ["Meenambakkam","7.14"], ["Pallavaram","7.16"], ["Vels University","7.20"], ["Perumal Nagar","7.22"], ["Medavakkam Lathia Market","7.30"], ["Medavakkam Pushpa Nagar","7.35"], ["College","7.50"] ] },
+        { no: "21", name: "Vyasarpadi", driver: "Mushtaq", driverPhone: "7010636424", incharge: "A. Deepa", inchargePhone: "9841855726",
+          stops: [ ["Erukanchery","6.15"], ["Ambethkar College","6.18"], ["Moolakadai Junction","6.23"], ["Madhavaram","6.28"], ["Rettery","6.32"], ["Senthil Nagar","6.35"], ["Kolathur","6.38"], ["ICF","6.42"], ["ICF K7 Police Stn","6.45"], ["Anna Nagar Roundana","6.48"], ["Skywalk","6.53"], ["Choolaimedu","6.56"], ["Liberty","7.02"], ["Ayodhimandapam","7.07"], ["Srinivasa Theatre","7.10"], ["Aranganathar Subway","7.12"], ["Kaveri Nagar","7.15"], ["Kannamapettai","7.18"], ["CIT Nagar","7.20"], ["Saidapet Metro","7.25"], ["Saidapet Arch","7.27"], ["Chinnamalai Court","7.28"], ["Pallikaranai Lathia Market","7.40"], ["Pallikaranai Narayanapuram","7.42"], ["Pallikaranai Sivan Koil","7.44"], ["Pallikaranai Oil Mill","7.45"], ["Pallikaranai Govt School","7.46"], ["College","7.55"] ] },
+        { no: "23", name: "Hastinapuram", driver: "Appar", driverPhone: "7358979239", incharge: "Geetha", inchargePhone: "9698383945",
+          stops: [ ["Hasthinapuram Bus Stand","7.30"], ["Kumaran Kundram","7.33"], ["Indira Cotton Mill","7.35"], ["Varadharajia Theatre","7.37"], ["Sri Abathsakaya Vinayagar","7.40"], ["Poondibazar Arul Institute","7.42"], ["MCC","7.45"], ["East Tambaram Poorvika","7.48"], ["Aadhi Nagar Sankara School","7.50"], ["Abirami Hall","7.52"], ["Camp Road","7.55"], ["Kamarajapuram","7.58"], ["Sembakkam","8.00"], ["Gowrivakkam","8.02"], ["College","8.05"] ] }
+      ];
+
+      const grid = document.getElementById('scheduleGrid');
+      const searchInput = document.getElementById('routeSearch');
+
+      function renderGrid(filterText = '') {
+        const filterLower = filterText.toLowerCase().trim();
+        const filtered = routesData.filter(r => 
+          r.no.includes(filterLower) || r.name.toLowerCase().includes(filterLower)
+        );
+        
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div class="no-results">No routes match your search</div>';
+          return;
+        }
+
+        let html = '';
+        filtered.forEach(route => {
+          const firstStop = route.stops[0];
+          const lastStop = route.stops[route.stops.length-1];
+          const uniqueId = `route-${route.no}-${route.name.replace(/\s+/g,'')}`;
+          
+          html += `
+            <div class="route-card" data-route-id="${route.no}">
+              <div class="card-header">
+                <h2>Route ${route.no}</h2>
+                <div class="route-name">${route.name}</div>
+                <div class="time-row">
+                  <span class="time-label">First pickup</span>
+                  <span class="time-value">${firstStop[1]}</span>
+                </div>
+                <div class="first-stop">${firstStop[0]}</div>
+                <div class="time-row">
+                  <span class="time-label">College arrival</span>
+                  <span class="time-value" style="background:#1d4d4d; color:white;">${lastStop[1]}</span>
+                </div>
+                <div class="driver-info">
+                  ${route.driver} · ${route.driverPhone}<br>
+                  Incharge: ${route.incharge}
+                </div>
+              </div>
+              <div class="card-footer">
+                <button class="toggle-btn" data-action="toggle" data-target="${uniqueId}">Show stops ▼</button>
+              </div>
+              <div class="card-details" id="${uniqueId}" style="display: none;">
+                <table class="stop-table">
+                  <thead><tr><th>Stop</th><th>Time</th></tr></thead>
+                  <tbody>
+                    ${route.stops.map(s => `<tr><td>${s[0]}</td><td class="stop-time">${s[1]}</td></tr>`).join('')}
+                  </tbody>
+                </table>
+                <div class="contact-full">
+                  Driver: ${route.driver} (${route.driverPhone}) · Incharge: ${route.incharge} (${route.inchargePhone})
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        grid.innerHTML = html;
+      }
+
+      renderGrid();
+
+      searchInput.addEventListener('input', (e) => {
+        renderGrid(e.target.value);
+      });
+
+      grid.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('[data-action="toggle"]');
+        if (toggleBtn) {
+          e.stopPropagation();
+          const targetId = toggleBtn.getAttribute('data-target');
+          const detailsDiv = document.getElementById(targetId);
+          if (detailsDiv) {
+            const isHidden = detailsDiv.style.display === 'none';
+            detailsDiv.style.display = isHidden ? 'block' : 'none';
+            toggleBtn.textContent = isHidden ? 'Hide stops ▲' : 'Show stops ▼';
+          }
+          return;
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>

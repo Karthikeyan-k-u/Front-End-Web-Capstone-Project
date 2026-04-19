@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routes – Prince Bus Tracker</title>
+  <link rel="icon" href="/html/ChatGPT Image Apr 15, 2026, 03_02_55 PM.png" type="image/png">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: system-ui, 'Segoe UI', Roboto, sans-serif; background: #f5f7fc; }
+    header { background: #1e2b4f; color: white; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo span { font-size: 1.5rem; font-weight: 600; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-link { color: #e0e7ff; text-decoration: none; font-weight: 500; }
+    .nav-link:hover { color: white; }
+    main { max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem; }
+    h1 { display: flex; gap: 0.5rem; color: #0b1e3a; font-size: 1.8rem; margin-bottom: 0.25rem; }
+    .subhead { color: #2c3e66; margin-bottom: 1.5rem; font-weight: 500; }
+    .routes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+    .route-card { background: white; border-radius: 18px; padding: 1.2rem 1.2rem; box-shadow: 0 6px 12px rgba(0,0,0,0.03); border: 1px solid #dee7f2; }
+    .route-card h2 { color: #102a4c; font-size: 1.5rem; margin-bottom: 0.2rem; border-bottom: 2px solid #cfdeff; padding-bottom: 0.2rem; }
+    .route-start { font-weight: 700; color: #1e3a6f; margin: 0.5rem 0 0.2rem; }
+    .stops-short { color: #1f2a44; font-size: 0.9rem; margin: 0.2rem 0; }
+    .timing { background: #e6edfb; display: inline-block; padding: 0.15rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin: 0.3rem 0; }
+    .driver { font-size: 0.75rem; color: #3f5575; margin-top: 0.7rem; border-top: 1px dashed #b0c4de; padding-top: 0.7rem; }
+    .note { background: #e9f0fe; padding: 1rem 1.5rem; border-radius: 40px; color: #10355e; margin-top: 2rem; }
+    footer { text-align: center; padding: 1.5rem; color: #4e6580; border-top: 1px solid #d0ddee; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><span>🚌 Prince Bus Tracker</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tracking.html" class="nav-link">Live</a></li>
+        <li><a href="routes.html" class="nav-link">Routes</a></li>
+        <li><a href="schedules.html" class="nav-link">Schedules</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>🚏 All Routes · Prince Group</h1>
+    <div class="subhead">📅 From 02.01.2026 – morning pick‑up</div>
+
+    <div class="routes-grid">
+      <!-- R1 -->
+      <div class="route-card"><h2>Route 1</h2><div class="route-start">🚏 CM Hospital 7:40</div><div class="stops-short">Nanganallur · Madipakkam · Keelkattalai · Vijaya Nagar</div><span class="timing">⏱️ 7:40 → 8:20</span><div class="driver">🚌 Siva 9884808111 · E.Monisha</div></div>
+      <!-- R2 -->
+      <div class="route-card"><h2>Route 2</h2><div class="route-start">🚏 Puzhuthivakkam Police Booth 7:30</div><div class="stops-short">NGO Colony · St Thomas Mt · Vanuvampet · Ganesh Nagar</div><span class="timing">⏱️ 7:30 → 8:20</span><div class="driver">🚌 Veerappan 8925067223 · S.Rathika</div></div>
+      <!-- R4 -->
+      <div class="route-card"><h2>Route 4</h2><div class="route-start">🚏 Manali Market 5:40</div><div class="stops-short">Thiruvottiyur · Beach · Adyar · Thiruvanmiyur · ECR · Sithalapakkam</div><span class="timing">⏱️ 5:40 → 7:52</span><div class="driver">🚌 Srinivasan 9361163577 · Sheril</div></div>
+      <!-- R6 -->
+      <div class="route-card"><h2>Route 6</h2><div class="route-start">🚏 Anna Arivalayam 7:00</div><div class="stops-short">Teynampet · Velachery · Perungudi · Sholinganallur · Medavakkam</div><span class="timing">⏱️ 7:00 → 8:17</span><div class="driver">🚌 Ayyappan 9962157726 · Reena</div></div>
+      <!-- R8 -->
+      <div class="route-card"><h2>Route 8</h2><div class="route-start">🚏 Prince School 7:40</div><div class="stops-short">Iyyappan Koil · Ponniamman Koil · S.Kolathur · Kovilambakkam</div><span class="timing">⏱️ 7:40 → 8:13</span><div class="driver">🚌 Rajendran 9884727360 · Rajarajeshwari</div></div>
+      <!-- R10 -->
+      <div class="route-card"><h2>Route 10</h2><div class="route-start">🚏 Padappai A2B 7:15</div><div class="stops-short">Mudichur · Tambaram · Vandalur Zoo · Mambakkam</div><span class="timing">⏱️ 7:15 → 8:05</span><div class="driver">🚌 Kuppan 7397327797 · Poornima</div></div>
+      <!-- R11 -->
+      <div class="route-card"><h2>Route 11</h2><div class="route-start">🚏 Chengalpattu GH 7:00</div><div class="stops-short">Mahindra City · Maraimalai Nagar · Potheri · Urapakkam · Perungalathur</div><span class="timing">⏱️ 7:00 → 8:10</span><div class="driver">🚌 Madhurai 6380998233 · Uma Maheshwari</div></div>
+      <!-- R14 -->
+      <div class="route-card"><h2>Route 14</h2><div class="route-start">🚏 Kovur 7:00</div><div class="stops-short">Kundrathur · Pammal · Chromepet · Sanatorium · Mappedu</div><span class="timing">⏱️ 7:00 → 8:03</span><div class="driver">🚌 Kumar 8939380463 · N.Divya</div></div>
+      <!-- R15 -->
+      <div class="route-card"><h2>Route 15</h2><div class="route-start">🚏 Pattabiram 6:20</div><div class="stops-short">Avadi · Porur · Butt Road · Tambaram West · Madambakkam</div><span class="timing">⏱️ 6:20 → 8:04</span><div class="driver">🚌 Arunkumar 9840233746 · Suganthi</div></div>
+      <!-- R19 -->
+      <div class="route-card"><h2>Route 19</h2><div class="route-start">🚏 Red Hills 6:00</div><div class="stops-short">Ambattur · Koyambedu · Vadapalani · Pallavaram · Medavakkam</div><span class="timing">⏱️ 6:00 → College</span><div class="driver">🚌 Vaithiyanathan 8778418943 · Jayachitra</div></div>
+      <!-- R21 -->
+      <div class="route-card"><h2>Route 21</h2><div class="route-start">🚏 Erukanchery 6:15</div><div class="stops-short">Moolakadai · ICF · Anna Nagar · Saidapet · Pallikaranai</div><span class="timing">⏱️ 6:15 → 7:46</span><div class="driver">🚌 Mushtaq 7010636424 · A.Deepa</div></div>
+      <!-- R23 -->
+      <div class="route-card"><h2>Route 23</h2><div class="route-start">🚏 Hasthinapuram 7:30</div><div class="stops-short">Kumaran Kundram · MCC · East Tambaram · Camp Road · Gowrivakkam</div><span class="timing">⏱️ 7:30 → 8:02</span><div class="driver">🚌 Appar 7358979239 · Geetha</div></div>
+    </div>
+
+    <div class="note">🔍 Click any route on the tracking page for live bus. Full timings on Schedules.</div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Prince College Bus Tracker — updated 02.01.2026 schedule</p>
+  </footer>
+</body>
+</html>

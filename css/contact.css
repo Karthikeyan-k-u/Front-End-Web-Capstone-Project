@@ -1,0 +1,412 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: #f5f7fb;
+  color: #1e293b;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f3b6a;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #334155;
+  padding: 0.5rem 0;
+  transition: color 0.2s, border-color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: #1e4a7a;
+  border-bottom-color: #1e4a7a;
+}
+
+.nav-link.active {
+  color: #1e4a7a;
+  border-bottom-color: #1e4a7a;
+  font-weight: 600;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #0b2b4a;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-left: 6px solid #1e4a7a;
+  padding-left: 1.2rem;
+}
+
+/* ===== TRACKING SPECIFIC ===== */
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 12px;
+  margin: 20px 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dce5ec;
+}
+
+.tracking-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+  margin-bottom: 0.5rem;
+}
+
+.tracking-controls label {
+  font-weight: 600;
+  color: #1e3a5f;
+}
+
+select {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+select:focus {
+  border-color: #1e4a7a;
+  box-shadow: 0 0 0 3px rgba(30, 74, 122, 0.1);
+}
+
+.btn-secondary {
+  background: #e9f0fa;
+  border: 1px solid #bdd3eb;
+  color: #1e4a7a;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #d3e2f5;
+  border-color: #1e4a7a;
+}
+
+#lastUpdate {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #4a627a;
+  background: #f0f4fa;
+  padding: 6px 14px;
+  border-radius: 30px;
+}
+
+/* ===== ROUTES GRID ===== */
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.8rem;
+  margin: 2rem 0;
+}
+
+.route-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.8rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  border: 1px solid #eef2f6;
+  cursor: pointer;
+}
+
+.route-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 28px rgba(0, 20, 40, 0.08);
+  border-color: #cbd5e1;
+}
+
+.route-card h2 {
+  font-size: 1.8rem;
+  color: #1e4a7a;
+  margin-bottom: 0.5rem;
+}
+
+.route-card p {
+  margin: 0.5rem 0;
+  color: #475569;
+}
+
+.route-card strong {
+  color: #0b2b4a;
+}
+
+/* ===== SCHEDULES TABLE ===== */
+.schedule-table-container {
+  overflow-x: auto;
+  margin: 2rem 0 1rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+  background: white;
+  border: 1px solid #e9edf2;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  min-width: 600px;
+}
+
+.schedule-table thead tr {
+  background: #1e3a5f;
+  color: white;
+}
+
+.schedule-table th {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.schedule-table td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: #1e293b;
+}
+
+.schedule-table tbody tr {
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.schedule-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.schedule-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table td:first-child {
+  font-weight: 600;
+  color: #0f3b6a;
+}
+
+/* ===== CONTACT PAGE (NEW) ===== */
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.contact-info {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #eef2f6;
+}
+
+.contact-info h2 {
+  color: #1e3a5f;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.75rem;
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.contact-info strong {
+  color: #0b2b4a;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 90px;
+}
+
+.contact-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #eef2f6;
+}
+
+.contact-form h3 {
+  color: #1e3a5f;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1.2rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #1e4a7a;
+  box-shadow: 0 0 0 3px rgba(30, 74, 122, 0.1);
+}
+
+.btn-primary {
+  background: #1e4a7a;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: #0f3b6a;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.contact-form .note {
+  margin-top: 1rem;
+  text-align: center;
+  background: transparent;
+  padding: 0.5rem;
+  border-left: none;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 1.8rem;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .nav-links {
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .tracking-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  #lastUpdate {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  #map {
+    height: 400px;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-info,
+  .contact-form {
+    padding: 1.5rem;
+  }
+}

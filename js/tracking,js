@@ -1,0 +1,155 @@
+/**
+ * Prince Bus Tracker – Live Tracking Page
+ * Robust version with map load verification and fallback tiles.
+ */
+
+(function() {
+  'use strict';
+
+  // ---------- Set active nav link ----------
+  function setActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
+    const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // ---------- Initialize map and tracking ----------
+  function initTracking() {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) return;
+
+    // Verify Leaflet loaded
+    if (typeof L === 'undefined') {
+      mapElement.innerHTML = '<p style="padding:2rem;text-align:center;color:#b91c1c;">⚠️ Map library failed to load. Please refresh or check your internet connection.</p>';
+      console.error('Leaflet library not loaded.');
+      return;
+    }
+
+    // Center on Chennai (Tambaram/Medavakkam)
+    const map = L.map('map').setView([12.93, 80.14], 12);
+
+    // Primary tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Fallback tile layer in case OSM is blocked (CartoDB)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; CartoDB',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map); // Adding both layers; the last one will be on top, but it's fine.
+
+    // Force map to recalculate size after container is ready
+    setTimeout(() => map.invalidateSize(), 100);
+
+    // ----- Prince Routes data (same as before) -----
+    const busData = {
+      '1': { name: 'Route 1 – Prince School', color: '#2563eb', basePos: [12.978, 80.185], count: 2, offset: 0.008 },
+      '2': { name: 'Route 2 – NGO Colony', color: '#16a34a', basePos: [12.985, 80.195], count: 2, offset: 0.007 },
+      '4': { name: 'Route 4 – Thiruvottiyur', color: '#9333ea', basePos: [13.145, 80.295], count: 2, offset: 0.01 },
+      '6': { name: 'Route 6 – Teynampet', color: '#ea580c', basePos: [13.045, 80.245], count: 2, offset: 0.009 },
+      '8': { name: 'Route 8 – Madipakkam', color: '#0891b2', basePos: [12.965, 80.195], count: 2, offset: 0.006 },
+      '10': { name: 'Route 10 – Padappai', color: '#ca8a04', basePos: [12.88, 80.08], count: 2, offset: 0.01 },
+      '11': { name: 'Route 11 – Chengalpattu', color: '#dc2626', basePos: [12.68, 79.98], count: 2, offset: 0.012 },
+      '14': { name: 'Route 14 – Kundrathur', color: '#7c3aed', basePos: [13.00, 80.10], count: 2, offset: 0.009 },
+      '15': { name: 'Route 15 – Pattabiram', color: '#db2777', basePos: [13.12, 80.08], count: 2, offset: 0.01 },
+      '19': { name: 'Route 19 – Red Hills', color: '#0f766e', basePos: [13.19, 80.20], count: 2, offset: 0.01 },
+      '21': { name: 'Route 21 – Vyasarpadi', color: '#b45309', basePos: [13.11, 80.25], count: 2, offset: 0.008 },
+      '23': { name: 'Route 23 – Hastinapuram', color: '#4f46e5', basePos: [12.94, 80.16], count: 2, offset: 0.007 }
+    };
+
+    function generatePositions(route) {
+      const posArray = [];
+      for (let i = 0; i < route.count; i++) {
+        const lat = route.basePos[0] + (i - 0.5) * route.offset;
+        const lng = route.basePos[1] + (i * 0.005);
+        posArray.push([lat, lng]);
+      }
+      return posArray;
+    }
+
+    Object.keys(busData).forEach(routeId => {
+      busData[routeId].positions = generatePositions(busData[routeId]);
+    });
+
+    let markers = [];
+    const routeSelect = document.getElementById('routeSelect');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const lastUpdateSpan = document.getElementById('lastUpdate');
+
+    function updateMap(selectedRoute) {
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      const routesToShow = selectedRoute === 'all' ? Object.keys(busData) : [selectedRoute];
+
+      routesToShow.forEach(routeId => {
+        const route = busData[routeId];
+        if (!route) return;
+
+        route.positions.forEach((pos, idx) => {
+          const marker = L.marker(pos, {
+            icon: L.divIcon({
+              className: 'bus-marker',
+              html: `<div style="background:${route.color}; width:30px; height:30px; border-radius:50%; border:3px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.2); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:12px;">${routeId}</div>`,
+              iconSize: [30, 30],
+              iconAnchor: [15, 15],
+              popupAnchor: [0, -15]
+            })
+          }).bindPopup(`<b>${route.name}</b><br>Bus #${idx+1}<br>🚌 Speed: ${Math.floor(Math.random()*15+15)} km/h`);
+          marker.addTo(map);
+          markers.push(marker);
+        });
+      });
+
+      lastUpdateSpan.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+    }
+
+    function simulateMovement() {
+      Object.keys(busData).forEach(routeId => {
+        const route = busData[routeId];
+        route.positions = route.positions.map(pos => [
+          pos[0] + (Math.random() - 0.5) * 0.006,
+          pos[1] + (Math.random() - 0.5) * 0.006
+        ]);
+        route.positions = route.positions.map((pos, i) => {
+          const baseLat = route.basePos[0] + (i - 0.5) * route.offset;
+          const baseLng = route.basePos[1] + i * 0.005;
+          return [pos[0] * 0.7 + baseLat * 0.3, pos[1] * 0.7 + baseLng * 0.3];
+        });
+      });
+    }
+
+    function refreshMap() {
+      simulateMovement();
+      updateMap(routeSelect.value);
+    }
+
+    routeSelect.addEventListener('change', (e) => updateMap(e.target.value));
+    refreshBtn.addEventListener('click', refreshMap);
+
+    updateMap('all');
+
+    let intervalId = setInterval(() => {
+      if (document.visibilityState === 'visible') refreshMap();
+    }, 10000);
+
+    window.addEventListener('beforeunload', () => clearInterval(intervalId));
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setActiveNavLink();
+    initTracking();
+  });
+
+})();

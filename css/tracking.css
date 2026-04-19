@@ -1,0 +1,240 @@
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f7fc;
+  color: #1e293b;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #1e2b4f;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #2a3c5e;
+}
+
+.logo span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #e0e7ff;
+  padding: 0.5rem 0;
+  transition: color 0.2s, border-color 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: white;
+  border-bottom-color: white;
+}
+
+.nav-link.active {
+  color: white;
+  border-bottom-color: white;
+  font-weight: 600;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  max-width: 1300px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  flex: 1;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #0b2b4a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-left: 6px solid #1e2b4f;
+  padding-left: 1.2rem;
+}
+
+/* ===== TRACKING CONTROLS ===== */
+.tracking-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: white;
+  padding: 1rem 1.8rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.5rem;
+  border: 1px solid #dee7f2;
+}
+
+.tracking-controls label {
+  font-weight: 600;
+  color: #1e3a6f;
+}
+
+select {
+  padding: 8px 18px;
+  border-radius: 30px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.2s;
+  min-width: 200px;
+}
+
+select:focus {
+  border-color: #1e2b4f;
+  box-shadow: 0 0 0 3px rgba(30, 43, 79, 0.1);
+}
+
+.btn-secondary {
+  background: #eef3fc;
+  border: 1px solid #b6cae0;
+  color: #1e3a6f;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #dde7f5;
+  border-color: #1e2b4f;
+  color: #0f2a4a;
+}
+
+#lastUpdate {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #4a627a;
+  background: #f0f4fa;
+  padding: 6px 16px;
+  border-radius: 30px;
+}
+
+/* ===== MAP ===== */
+#map {
+  height: 520px;
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dce5ec;
+  z-index: 1;
+  margin-bottom: 1.2rem;
+}
+
+/* ===== LEGEND ===== */
+.tracking-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2rem;
+  background: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 40px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dee7f2;
+  justify-content: center;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 6px;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tracking-legend span {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #1e3a5f;
+  font-weight: 500;
+}
+
+/* ===== NOTE ===== */
+.note {
+  margin-top: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  background: #e9f0fe;
+  border-radius: 40px;
+  display: inline-block;
+  color: #10355e;
+  font-weight: 500;
+  border-left: 4px solid #1e2b4f;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  color: #4e6580;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    text-align: center;
+  }
+  .nav-links {
+    justify-content: center;
+    gap: 1.2rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  .tracking-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #lastUpdate {
+    margin-left: 0;
+    text-align: center;
+  }
+  #map {
+    height: 400px;
+  }
+  .tracking-legend {
+    gap: 0.8rem 1.2rem;
+  }
+}
